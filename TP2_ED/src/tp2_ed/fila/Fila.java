@@ -9,19 +9,19 @@ package tp2_ed.fila;
  *
  * @author tadeu
  */
-public class Lista implements ILista {
+public class Fila implements IFila {
 
-    private Nodo inicio;
-    private Nodo fim;
+    private No inicio;
+    private No fim;
 
-    public Lista() {
+    public Fila() {
         this.inicio = null;
         this.fim = null;
     }
 
     @Override
     public boolean add(int info) {
-        Nodo novo = new Nodo(info);
+        No novo = new No(info);
         if (inicio == null) {
             inicio = novo;
         } else {
@@ -33,7 +33,7 @@ public class Lista implements ILista {
 
     @Override
     public boolean remove() {
-        Nodo atual = inicio;
+        No atual = inicio;
         if (inicio != null) {
             if (inicio == fim) {
                 inicio = null;
@@ -66,7 +66,7 @@ public class Lista implements ILista {
 
     @Override
     public int size() {
-        Nodo atual = inicio;
+        No atual = inicio;
         int i = 0;
         while (atual != null) {
             i++;

@@ -9,13 +9,13 @@ package tp2_ed.fila;
  *
  * @author tadeu
  */
-public class Nodo {
+public class No {
 
     private int info;
-    private Nodo prox;
-    private Nodo anterior;
+    private No prox;
+    private No anterior;
 
-    public Nodo(int num) {
+    public No(int num) {
         this.info = num;
         this.prox = null;
     }
@@ -24,21 +24,21 @@ public class Nodo {
         return this.info;
     }
 
-    public Nodo getAnterior() {
+    public No getAnterior() {
         return anterior;
     }
 
-    public void setAnterior(Nodo anterior) {
+    public void setAnterior(No anterior) {
         this.anterior = anterior;
     }
 
     
     
-    public Nodo getProx() {
+    public No getProx() {
         return this.prox;
     }
 
-    public void setProx(Nodo n) {
+    public void setProx(No n) {
         this.prox = n;
     }
 }

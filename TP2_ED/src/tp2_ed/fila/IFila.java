@@ -9,7 +9,7 @@ package tp2_ed.fila;
  *
  * @author tadeu
  */
-public interface ILista {
+public interface IFila {
 
     public boolean add(int info);
 
