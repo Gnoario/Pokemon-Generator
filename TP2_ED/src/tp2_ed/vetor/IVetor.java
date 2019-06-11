@@ -5,22 +5,25 @@
  */
 package tp2_ed.vetor;
 
+import tp2_ed.Pokemon;
+
 /**
  *
  * @author tadeu
  */
 public interface IVetor {
         
-        public boolean add(int item);
-	public boolean contains(int item);
-	public int get(int indice);
-	public int indexOf(int item);
+        public boolean add(Pokemon pokemon);
+	public boolean contains(Pokemon pokemon);
+	public Pokemon get(int indice);
+	public int indexOf(Pokemon pokemon);
 	public boolean isEmpty();
 	public boolean isFull();	
-	public boolean remove(int item);
-	public boolean set(int indice, int novoItem);
+	public boolean remove(Pokemon pokemon);
+	public boolean set(int indice, Pokemon novoPokemon);
 	public int size();
         
+        @Override
 	public String toString();
         
 }

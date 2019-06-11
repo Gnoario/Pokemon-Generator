@@ -5,85 +5,36 @@
  */
 package tp2_ed.vetor;
 
+import java.util.Arrays;
+import tp2_ed.Pokemon;
+
 /**
  *
  * @author tadeu
  */
 public class Vetor implements IVetor {
 
-    private int meuVetor[];
+    private Pokemon pokemons[];
     private int numElementos;
-    
 
     public Vetor(int max) {
-        meuVetor = new int[max];
+        pokemons = new Pokemon[max];
         numElementos = 0;
     }
 
-    public int[] getMeuVetor() {
-        return meuVetor;
+    public Pokemon[] getMeuVetor() {
+        return pokemons;
     }
 
-    public void setMeuVetor(int[] meuVetor) {
-        this.meuVetor = meuVetor;
+    public void setMeuVetor(Pokemon[] pokemons) {
+        this.pokemons = pokemons;
     }
 
-    public int getNumElementos() {
-        return numElementos;
-    }
-
-    public void setNumElementos(int numElementos) {
-        this.numElementos = numElementos;
-    }
-
-    public void bubbleSort() {
-        int aux;
-        for (int j = 0; j < meuVetor.length - 1; j++) {
-            for (int i = 0; i < meuVetor.length - 1 - j; i++) {
-                if (meuVetor[i] > meuVetor[i + 1]) {
-                    aux = meuVetor[i];
-                    meuVetor[i] = meuVetor[i + 1];
-                    meuVetor[i + 1] = aux;
-                }
-            }
-            for (int i = 0; i < meuVetor.length; i++) {
-                System.out.println("Meu vetor é: " + meuVetor[i]);
-            }
-
-        }
-    }
-
-    public void insert() {
-        for (int i = 1; i < meuVetor.length; i++) {
-            while (meuVetor[i] < meuVetor[i - 1]) {
-
-            }
-
-        }
-    }
-
-    public void selection() {
-        int aux, aux2;
-        for (int i = 0; i < meuVetor.length; i++) {
-            aux = i;
-            for (int j = i + 1; j < meuVetor.length; j++) {
-                if (meuVetor[j] < meuVetor[aux]) {
-                    aux = j;
-                }
-            }
-            aux2 = meuVetor[i];
-            meuVetor[i] = meuVetor[aux];
-            meuVetor[aux] = aux2;
-        }
-        for (int i = 0; i < meuVetor.length; i++) {
-            System.out.println(meuVetor[i] + " ");
-        }
-    }
 
     @Override
-    public boolean add(int item) {
+    public boolean add(Pokemon pokemon) {
         if (!isFull()) {
-            meuVetor[numElementos] = item;
+            pokemons[numElementos] = pokemon;
             numElementos++;
             return true;
         }
@@ -91,89 +42,70 @@ public class Vetor implements IVetor {
     }
 
     @Override
-    public boolean contains(int item) {
-        for (int i = 0; i < meuVetor.length; i++) {
-            if (meuVetor[i] == item) {
+    public boolean contains(Pokemon pokemon) {
+        for (Pokemon pokemon1 : pokemons) {
+            if (pokemon1 == pokemon) {
                 return true;
             }
-
         }
         return false;
     }
 
-    @Override
-    public int get(int indice) {
-        if (indice >= 0 && indice < numElementos) {
-            return meuVetor[indice];
-        }
-        return -1;
-    }
-
-    @Override
-    public int indexOf(int item) {
-        int m, e = 0;
-        int d = this.meuVetor.length - 1;
-        while (e <= d) {
-            m = (e + d) / 2;
-            if (this.meuVetor[m] == item) {
-                return m;
-            } else if (this.meuVetor[m] < item) {
-                e = m + 1;
-            } else {
-                d = m - 1;
+    public void pokemons() {
+        for (int i = pokemons.length - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (pokemons[j + 1] == null) {
+                    continue;
+                }
+                if (pokemons[j] == null || pokemons[j + 1].getNome().compareTo(pokemons[j].getNome()) < 0) {
+                    Pokemon temp = pokemons[j + 1];
+                    pokemons[j + 1] = pokemons[j];
+                    pokemons[j] = temp;
+                }
             }
         }
-//        for (int i = 0; i < numElementos; i++) {
-//            if (meuVetor[i] == item) {
-//                return i;
-//            }
-//        }
-        return -1;
+        System.out.println("show rooms: " + Arrays.toString(pokemons));
     }
 
-    public int buscaBinariaRecursiva(int v[],int menor, int maior,int valor) {
-        int media = (maior + menor) / 2;
-        int valorMeio = meuVetor[media];
-
-        if (menor > maior) {
-            return -1;
-        } else if (valorMeio == valor) {
-            return media;
-        } else if (valorMeio < valor) {
-            return buscaBinariaRecursiva(meuVetor, media + 1, maior, valor);
-        } else {
-            return buscaBinariaRecursiva(meuVetor, menor, media - 1, valor);
+    @Override
+    public Pokemon get(int indice) {
+        if (indice >= 0 && indice < numElementos) {
+            return pokemons[indice];
         }
+        return null;
     }
-    
-    public int busca(int valor) {
-        return buscaBinariaRecursiva(meuVetor, 0, meuVetor.length - 1, valor);
+
+    @Override
+    public int indexOf(Pokemon pokemon) {
+        for (int i = 0; i < numElementos; i++) {
+            if (pokemons[i] == pokemon) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public boolean isEmpty() {
-        for (int i = 0; i < meuVetor.length; i++) {
-            if (meuVetor[i] == 0) {
+        for (int i = 0; i < pokemons.length; i++) {
+            if (pokemons[i] == null) {
                 return true;
             }
         }
-        return meuVetor.length == 0;
+        return pokemons.length == 0;
     }
 
     @Override
     public boolean isFull() {
-        if (numElementos != meuVetor.length) {
-            return false;
-        }
-        return true;
+        return numElementos == pokemons.length;
     }
 
     @Override
-    public boolean remove(int item) {
-        int indice = indexOf(item);
+    public boolean remove(Pokemon pokemon) {
+        int indice = indexOf(pokemon);
         if (indice != -1) {
             for (int i = indice; i < (numElementos - 1); i++) {
-                meuVetor[i] = meuVetor[i + 1];
+                pokemons[i] = pokemons[i + 1];
             }
             numElementos--;
             return true;
@@ -181,23 +113,47 @@ public class Vetor implements IVetor {
         return false;
     }
 
+    public boolean removePokemonAgua() {
+        if (!isEmpty()) {
+            for (int i = 0; i < (numElementos - 1); i++) {
+                if (pokemons[i].getTipo().equalsIgnoreCase("agua")) {
+                    pokemons[i] = pokemons[i + 1];
+                }
+            }
+            numElementos--;
+            return true;
+        }
+
+        return true;
+    }
+
     @Override
-    public boolean set(int indice, int novoItem) {
+    public boolean set(int indice, Pokemon novoPokemon) {
         if (indice >= 0 && indice < numElementos) {
-            meuVetor[indice] = novoItem;
+            pokemons[indice] = novoPokemon;
         }
         return false;
     }
 
     @Override
     public int size() {
-        return meuVetor.length;
+        return numElementos;
     }
 
-    public void to() {
-        for (int i = 0; i < meuVetor.length; i++) {
-            System.out.println(meuVetor[i] + " ");
+    public int getTipo() {
+        int aux = 0;
+        for (int i = 0; i <= numElementos; i++) {
+            if (pokemons[i].getTipo().equalsIgnoreCase("fogo")) {
+                aux++;
+            }
+        }
+        return aux;
+    }
+
+    public void imprimi() {
+        for (int i = 0; i <= numElementos; i++) {
+            System.out.println(pokemons[i] + " ");
         }
     }
-    
+
 }
