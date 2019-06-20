@@ -5,10 +5,8 @@
  */
 package tp2_ed.fila;
 
-/**
- *
- * @author tadeu
- */
+import tp2_ed.Pokemon;
+
 public class Fila implements IFila {
 
     private No inicio;
@@ -20,8 +18,8 @@ public class Fila implements IFila {
     }
 
     @Override
-    public boolean add(int info) {
-        No novo = new No(info);
+    public boolean add(Pokemon p) {
+        No novo = new No(p);
         if (inicio == null) {
             inicio = novo;
         } else {
@@ -50,8 +48,8 @@ public class Fila implements IFila {
         return false;
     }
     
-    public int removeFirst(){
-        int info = -1;
+    public Pokemon removeFirst(){
+        Pokemon info = null;
         if (inicio != null) {
             info = inicio.getInfo();
             inicio = inicio.getProx();
@@ -75,4 +73,5 @@ public class Fila implements IFila {
         return i;
     }
 
+	
 }

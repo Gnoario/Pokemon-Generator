@@ -5,22 +5,20 @@
  */
 package tp2_ed.fila;
 
-/**
- *
- * @author tadeu
- */
+import tp2_ed.Pokemon;
+
 public class No {
 
-    private int info;
+    private Pokemon info;
     private No prox;
     private No anterior;
 
-    public No(int num) {
-        this.info = num;
+    public No(Pokemon pok) {
+        this.info = pok;
         this.prox = null;
     }
 
-    public int getInfo() {
+    public Pokemon getInfo() {
         return this.info;
     }
 

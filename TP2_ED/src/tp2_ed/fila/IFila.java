@@ -5,13 +5,11 @@
  */
 package tp2_ed.fila;
 
-/**
- *
- * @author tadeu
- */
+import tp2_ed.Pokemon;
+
 public interface IFila {
 
-    public boolean add(int info);
+    public boolean add(Pokemon p);
 
     public boolean remove();
 
