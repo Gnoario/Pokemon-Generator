@@ -7,10 +7,7 @@ package tp2_ed;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Aline
- */
+
 public class Pokemon implements Comparable, Serializable {
     private String nome;
     private String tipo;

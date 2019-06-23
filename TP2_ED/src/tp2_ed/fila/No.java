@@ -9,34 +9,37 @@ import tp2_ed.Pokemon;
 
 public class No {
 
-    private Pokemon info;
-    private No prox;
-    private No anterior;
+	private Pokemon info;
+	private No prox;
+	private No anterior;
 
-    public No(Pokemon pok) {
-        this.info = pok;
-        this.prox = null;
-    }
+	public No(Pokemon pok) {
+		this.info = pok;
+		this.prox = null;
+	}
 
-    public Pokemon getInfo() {
-        return this.info;
-    }
+	public Pokemon getInfo() {
+		return this.info;
+	}
 
-    public No getAnterior() {
-        return anterior;
-    }
+	public No getAnterior() {
+		return anterior;
+	}
 
-    public void setAnterior(No anterior) {
-        this.anterior = anterior;
-    }
+	public void setAnterior(No anterior) {
+		this.anterior = anterior;
+	}
 
-    
-    
-    public No getProx() {
-        return this.prox;
-    }
+	public No getProx() {
+		return this.prox;
+	}
 
-    public void setProx(No n) {
-        this.prox = n;
+	public void setProx(No n) {
+		this.prox = n;
+	}
+
+	public void imprimir() { 
+        System.out.println(info);
+        if (prox != null) prox.imprimir();
     }
 }

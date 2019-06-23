@@ -9,69 +9,93 @@ import tp2_ed.Pokemon;
 
 public class Fila implements IFila {
 
-    private No inicio;
-    private No fim;
+	private No inicio;
+	private No fim;
+	private int nElementos = 0;
 
-    public Fila() {
-        this.inicio = null;
-        this.fim = null;
-    }
+	public Fila() {
+		this.inicio = null;
+		this.fim = null;
+	}
 
-    @Override
-    public boolean add(Pokemon p) {
-        No novo = new No(p);
-        if (inicio == null) {
-            inicio = novo;
-        } else {
-            fim.setProx(novo);
-        }
-        fim = novo;
-        return true;
-    }
+	@Override
+	public boolean add(Pokemon p) {
+		No novo = new No(p);
+		if (inicio == null) {
+			inicio = novo;
+		} else {
+			fim.setProx(novo);
+		}
+		fim = novo;
+		nElementos++;
+		return true;
+	}
 
-    @Override
-    public boolean remove() {
-        No atual = inicio;
-        if (inicio != null) {
-            if (inicio == fim) {
-                inicio = null;
-                fim = null;
-            } else {
-                while (atual.getProx() != fim) {
-                    atual = atual.getProx();
-                }
-            }
-            atual.setProx(null);
-            fim = atual;
-            return true;
-        }
-        return false;
-    }
-    
-    public Pokemon removeFirst(){
-        Pokemon info = null;
-        if (inicio != null) {
-            info = inicio.getInfo();
-            inicio = inicio.getProx();
-        }
-        return info;
-    }
+	@Override
+	public boolean remove() {
+		if (inicio != null) {
+			if (inicio == fim) {
+				inicio = null;
+				fim = null;
+			} else {
+				inicio = inicio.getProx();
+			}
+			nElementos--;
+			return true;
+		}
+		return false;
+	}
 
-    @Override
-    public boolean isEmpty() {
-        return (inicio == null);
-    }
+	public Pokemon removeFirst() {
+		Pokemon info = null;
+		if (inicio != null) {
+			info = inicio.getInfo();
+			inicio = inicio.getProx();
+		}
+		return info;
+	}
 
-    @Override
-    public int size() {
-        No atual = inicio;
-        int i = 0;
-        while (atual != null) {
-            i++;
-            atual.getProx();
-        }
-        return i;
-    }
+	@Override
+	public boolean isEmpty() {
+		return (inicio == null);
+	}
+
+	@Override
+	public int size() {
+		return this.nElementos;
+	}
+
+
+	public int contarTipo(String tipo) {
+
+		No atual = inicio;
+		int nPokemonFogo = 0;
+		while (atual != null) {
+			if (atual.getInfo().getTipo().equalsIgnoreCase(tipo)) {
+				nPokemonFogo++;
+			}
+
+			atual = atual.getProx();
+		}
+		return nPokemonFogo;
+	}
 
 	
+	public Fila capturaPokemon(Pokemon pokemon) {
+        Fila nova = new Fila();
+        No aux = inicio;
+        while (aux != null) {
+            if (aux.getInfo().getTipo().equalsIgnoreCase("agua")) {
+                nova.add(pokemon);
+            }
+            aux = aux.getProx();
+        }
+        return nova;
+    }
+
+	@Override
+	public String toString() {
+		return "Fila [nElementos=" + nElementos + "]";
+	}
+
 }

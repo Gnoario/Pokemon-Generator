@@ -29,7 +29,7 @@ public class GeradorDePokemons {
     }
 
     private void leArquivo(){
-        File arquivoPokemons = new File("pokemons.txt");
+        File arquivoPokemons = new File("C:\\Users\\samue\\git\\Pokemon-Generator\\TP2_ED\\src\\tp2_ed\\Pokemons.txt");
         BufferedReader input;
         String pokemon;
         String [] atributos;
