@@ -19,7 +19,7 @@ public interface IVetor {
 	public int indexOf(Pokemon pokemon);
 	public boolean isEmpty();
 	public boolean isFull();	
-	public boolean remove(Pokemon pokemon);
+	public boolean remove(String pokemon);
 	public boolean set(int indice, Pokemon novoPokemon);
 	public int size();
         

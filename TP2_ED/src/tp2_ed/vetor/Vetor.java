@@ -5,7 +5,6 @@
  */
 package tp2_ed.vetor;
 
-import java.util.Arrays;
 import tp2_ed.Pokemon;
 
 /**
@@ -30,7 +29,6 @@ public class Vetor implements IVetor {
         this.pokemons = pokemons;
     }
 
-
     @Override
     public boolean add(Pokemon pokemon) {
         if (!isFull()) {
@@ -51,7 +49,7 @@ public class Vetor implements IVetor {
         return false;
     }
 
-    public void pokemons() {
+    public void ordenaPokemons() {
         for (int i = pokemons.length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (pokemons[j + 1] == null) {
@@ -64,7 +62,7 @@ public class Vetor implements IVetor {
                 }
             }
         }
-        System.out.println("show rooms: " + Arrays.toString(pokemons));
+        //System.out.println("Pokemon: " + Arrays.toString(pokemons));
     }
 
     @Override
@@ -97,34 +95,38 @@ public class Vetor implements IVetor {
 
     @Override
     public boolean isFull() {
-        return numElementos == pokemons.length;
+        if (numElementos != pokemons.length) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public boolean remove(Pokemon pokemon) {
-        int indice = indexOf(pokemon);
-        if (indice != -1) {
-            for (int i = indice; i < (numElementos - 1); i++) {
-                pokemons[i] = pokemons[i + 1];
+    public boolean remove(String pokemon) {
+        Pokemon vetorAux[] = new Pokemon[numElementos];
+        int index = 0;
+        for (int i = 0; i < numElementos; i++) {
+            if (!pokemons[i].getNome().equalsIgnoreCase(pokemon)) {
+                vetorAux[index] = pokemons[i];
+                index++;
             }
-            numElementos--;
-            return true;
         }
-        return false;
+        numElementos = index;
+        pokemons = vetorAux;
+        return true;
     }
 
-    public boolean removePokemonAgua() {
-        if (!isEmpty()) {
-            for (int i = 0; i < (numElementos - 1); i++) {
-                if (pokemons[i].getTipo().equalsIgnoreCase("agua")) {
-                    pokemons[i] = pokemons[i + 1];
-                }
+    public void removePokemonAgua() {
+        Pokemon vetorAux[] = new Pokemon[numElementos];
+        int index = 0;
+        for (int i = 0; i < numElementos; i++) {
+            if (!pokemons[i].getTipo().equalsIgnoreCase("agua")) {
+                vetorAux[index] = pokemons[i];
+                index++;
             }
-            numElementos--;
-            return true;
         }
-
-        return true;
+        numElementos = index;
+        pokemons = vetorAux;
     }
 
     @Override
@@ -140,9 +142,9 @@ public class Vetor implements IVetor {
         return numElementos;
     }
 
-    public int getTipo() {
+    public int countFire() {
         int aux = 0;
-        for (int i = 0; i <= numElementos; i++) {
+        for (int i = 0; i < numElementos; i++) {
             if (pokemons[i].getTipo().equalsIgnoreCase("fogo")) {
                 aux++;
             }
@@ -151,7 +153,7 @@ public class Vetor implements IVetor {
     }
 
     public void imprimi() {
-        for (int i = 0; i <= numElementos; i++) {
+        for (int i = 0; i < numElementos; i++) {
             System.out.println(pokemons[i] + " ");
         }
     }
