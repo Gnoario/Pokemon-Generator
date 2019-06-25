@@ -65,7 +65,6 @@ public class Fila implements IFila {
 		return this.nElementos;
 	}
 
-
 	public int contarTipo(String tipo) {
 
 		No atual = inicio;
@@ -80,22 +79,58 @@ public class Fila implements IFila {
 		return nPokemonFogo;
 	}
 
-	
-	public Fila capturaPokemon(Pokemon pokemon) {
-        Fila nova = new Fila();
-        No aux = inicio;
-        while (aux != null) {
-            if (aux.getInfo().getTipo().equalsIgnoreCase("agua")) {
-                nova.add(pokemon);
-            }
-            aux = aux.getProx();
-        }
-        return nova;
-    }
+	public Fila removePokemonByType(String type) {
+		Fila nova = new Fila();
+		No atual = inicio;
+
+		Pokemon pokemon = inicio.getInfo();
+
+//		pokemon = removeFirst();
+//		nova.add(pokemon);
+
+		while (atual != null) {
+
+			if (atual.getInfo().getTipo().equalsIgnoreCase(type)) {
+				removeFirst();
+			} else {
+				pokemon = removeFirst();
+				nova.add(pokemon);
+			}
+
+			atual = atual.getProx();
+		}
+		return nova;
+
+//		Fila nova = new Fila();
+//		No atual = inicio;
+//		
+//		Pokemon p, pAtual;
+//		p = removeFirst();
+//		nova.add(p);
+//
+//		while (atual != null) {
+//			pAtual = removeFirst();
+//			if (!pAtual.getTipo().equalsIgnoreCase("Agua")) {
+//				p = pAtual;
+//				nova.add(p);
+//			}
+//
+//		}
+//		return nova;
+	}
 
 	@Override
 	public String toString() {
-		return "Fila [nElementos=" + nElementos + "]";
+		StringBuilder values = new StringBuilder();
+		No atual = inicio;
+		while (atual != null) {
+			values.append(atual.getInfo());
+			values.append("\n");
+			atual = atual.getProx();
+		}
+		values.append("Fila [nElementos=" + nElementos + "]");
+
+		return values.toString();
 	}
 
 }

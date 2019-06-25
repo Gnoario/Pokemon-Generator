@@ -15,21 +15,25 @@ public class TP2_ED {
 
 		Scanner entrada = new Scanner(System.in);
 
-		Fila fila = new Fila();
+		Fila filaOriginal = new Fila();
 
 		long inicio = System.nanoTime();
+
 		for (int i = 0; i < 10; i++) {
 			Pokemon pokemon = new Pokemon();
-			fila.add(pokemon);
+			filaOriginal.add(pokemon);	
 		}
 		long fim = System.nanoTime();
 
 		System.out.println(fim - inicio);
 
-		System.out.println(fila.contarTipo("fogo"));
+		System.out.println(filaOriginal.contarTipo("fogo"));
 
-		while (!fila.isEmpty()) {
-			System.out.println(fila.removeFirst());
+		while (!filaOriginal.isEmpty()) {
+			System.out.println(filaOriginal);
+			System.out.println();
+			System.out.println(filaOriginal.removePokemonByType("Agua"));
+			System.out.println(filaOriginal);
 		}
 	}
 
