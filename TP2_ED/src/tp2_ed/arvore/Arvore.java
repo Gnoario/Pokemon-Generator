@@ -40,8 +40,7 @@ public class Arvore implements IArvore {
         return (this.raiz == null);
     }
 
-    @Override
-    public boolean add(Pokemon poke) {
+    public boolean addChave(Pokemon poke) {
         int chave = (numElementos + 1);
         if (chave % 2 != 0) {
             chave = (numElementos * -1);
@@ -56,33 +55,34 @@ public class Arvore implements IArvore {
         return true;
     }
 
+    @Override
+    public synchronized void add(Pokemon inserido) {//metodo para inserir nós na árvore
+        if (this.raiz == null) {//se a raiz é nula
+            raiz = new No(inserido);//cria objeto do tipo Nó, com o parametro inserido e cria o primeiro nó da árvore
+        } else {//se já possuir uma raiz na árvore
+            inserir(raiz, inserido);//chama o método inserir passando a raiz e o valor a ser inserido no novo nó
+        }
+    }
+
     public void inserir(No node, Pokemon pokemon) {//método para inserir nós na árvore
         int result, aux;
         result = Collator.getInstance().compare(pokemon.getNome(), node.getPokemon().getNome());
         //compara o pokemon adicionado com o atual da arvore
         aux = pokemon.getNome().compareTo(node.getPokemon().getNome());
-        if (aux < 0) {//se o nome do pokemon a inserir é uma consoante anterior que a do nó atual
+        if (aux < 0 || aux == 0) {//se o nome do pokemon a inserir é uma consoante anterior que a do nó atual
             if (node.getEsq() != null) {//se já existir um nó do lado esquerdo do nó atual
                 inserir(node.getEsq(), pokemon);//chama a funcao recursiva inserir do lado esquerdo do nó atual
             } else {//se não existir nó do lado esquerdo
-                System.out.println("Inserindo " + pokemon.getNome() + " a esquerda do pokemon " + node.getPokemon().getNome());
+                //System.out.println("Inserindo " + pokemon.getNome() + " a esquerda do pokemon " + node.getPokemon().getNome());
                 node.setEsq(new No(pokemon));//cria novo nó com o valor passado em parametro e insere-o na árvore do lado esquerdo do nó atual
             }
         } else if (aux > 0) {//se o nome do pokemon a inserir é uma consoante posterior a que a do nó atual
             if (node.getDir() != null) {//se já existir um nó do lado direito do nó atual
                 inserir(node.getDir(), pokemon);//chama a funcao recursiva inserir do lado direito do nó atual
             } else {//se não existir nó do lado direito
-                System.out.println("Inserindo " + pokemon.getNome() + " a direita do pokemon " + node.getPokemon().getNome());
+                //System.out.println("Inserindo " + pokemon.getNome() + " a direita do pokemon " + node.getPokemon().getNome());
                 node.setDir(new No(pokemon));//cria novo nó com o valor passado em parametro e insere-o na árvore do lado direito do nó atual
             }
-        }
-    }
-
-    public synchronized void insereNo(Pokemon inserido) {//metodo para inserir nós na árvore
-        if (this.raiz == null) {//se a raiz é nula
-            raiz = new No(inserido);//cria objeto do tipo Nó, com o parametro inserido e cria o primeiro nó da árvore
-        } else {//se já possuir uma raiz na árvore
-            inserir(raiz, inserido);//chama o método inserir passando a raiz e o valor a ser inserido no novo nó
         }
     }
 
@@ -106,7 +106,8 @@ public class Arvore implements IArvore {
         }
     }
 
-    public int qtdPokemonsFogo() {
+    @Override
+    public int countFire() {
         return contTipoFogo(raiz);
     }
 
@@ -114,7 +115,7 @@ public class Arvore implements IArvore {
         if (atual == null) {
             return 0;
         }
-        if (atual.getPokemon().getTipo().toUpperCase().contains("AGUA")) {
+        if (atual.getPokemon().getTipo().toLowerCase().contains("fogo")) {
             return contTipoFogo(atual.getEsq()) + 1 + contTipoFogo(atual.getDir());
         }
         return contTipoFogo(atual.getEsq()) + 0 + contTipoFogo(atual.getDir());
@@ -236,7 +237,8 @@ public class Arvore implements IArvore {
         return raiz;
     }
 
-    public boolean removePokemonsTipoAgua() {
+    @Override
+    public boolean removePokemonsAgua() {
         return removeTipoAgua(this.raiz, this.raiz);
     }
 
@@ -244,18 +246,18 @@ public class Arvore implements IArvore {
         if (atual == null) {
             return false;
         }
-        if (atual.getPokemon().getTipo().toUpperCase().contains("AGUA")) {
+        if (atual.getPokemon().getTipo().toLowerCase().contains("agua")) {
             removeRecursivo(atual, pai);
         }
         removeTipoAgua(atual.getEsq(), atual);
-        //removeTipoAgua(atual.getDir(), atual);
+        removeTipoAgua(atual.getDir(), atual);
 
         return true;
     }
 
     private boolean removeRecursivo(No atual, No pai) {
         if (atual != null) {
-            if (atual.getPokemon().getTipo().toUpperCase().contains("AGUA")) {
+            if (atual.getPokemon().getTipo().toLowerCase().contains("agua")) {
                 removeEncontrado(atual, pai);
             } else {
                 removeRecursivo(atual.getEsq(), atual);
@@ -267,7 +269,7 @@ public class Arvore implements IArvore {
 
     private String toString(No atual) {
         if (atual == null) {
-            return " ";
+            return "\n ";
         }
         return toString(atual.getEsq())
                 + atual.imprimir()

@@ -12,18 +12,32 @@ import tp2_ed.Pokemon;
  * @author tadeu
  */
 public interface IVetor {
-        
-        public boolean add(Pokemon pokemon);
-	public boolean contains(Pokemon pokemon);
-	public Pokemon get(int indice);
-	public int indexOf(Pokemon pokemon);
-	public boolean isEmpty();
-	public boolean isFull();	
-	public boolean remove(String pokemon);
-	public boolean set(int indice, Pokemon novoPokemon);
-	public int size();
-        
-        @Override
-	public String toString();
-        
+
+    public boolean add(Pokemon pokemon);
+
+    public boolean contains(Pokemon pokemon);
+
+    public Pokemon get(int indice);
+
+    public int indexOf(Pokemon pokemon);
+
+    public boolean isEmpty();
+
+    public boolean isFull();
+
+    public boolean remove(String pokemon);
+
+    public boolean set(int indice, Pokemon novoPokemon);
+
+    public int size();
+
+    public int countFire();
+
+    public void removePokemonsAgua();
+    
+    public void ordenaPokemons();
+
+    @Override
+    public String toString();
+
 }

@@ -20,7 +20,11 @@ public interface IArvore {
     @Override
     public String toString();
 
-    public boolean add(Pokemon p);
+    public void add(Pokemon p);
 
     public boolean remove(int chave);
+    
+    public int countFire();
+    
+    public boolean removePokemonsAgua();
 }

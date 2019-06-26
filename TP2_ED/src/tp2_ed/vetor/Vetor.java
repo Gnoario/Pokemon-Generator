@@ -49,6 +49,7 @@ public class Vetor implements IVetor {
         return false;
     }
 
+    @Override
     public void ordenaPokemons() {
         for (int i = pokemons.length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
@@ -115,12 +116,12 @@ public class Vetor implements IVetor {
         pokemons = vetorAux;
         return true;
     }
-
-    public void removePokemonAgua() {
+    @Override
+    public void removePokemonsAgua() {
         Pokemon vetorAux[] = new Pokemon[numElementos];
         int index = 0;
         for (int i = 0; i < numElementos; i++) {
-            if (!pokemons[i].getTipo().equalsIgnoreCase("agua")) {
+            if (!pokemons[i].getTipo().toLowerCase().contains("agua")) {
                 vetorAux[index] = pokemons[i];
                 index++;
             }
@@ -142,10 +143,11 @@ public class Vetor implements IVetor {
         return numElementos;
     }
 
+    @Override
     public int countFire() {
         int aux = 0;
         for (int i = 0; i < numElementos; i++) {
-            if (pokemons[i].getTipo().equalsIgnoreCase("fogo")) {
+            if (pokemons[i].getTipo().toLowerCase().contains("fogo")) {
                 aux++;
             }
         }

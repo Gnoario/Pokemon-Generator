@@ -25,7 +25,7 @@ public class No {
         this.dir = null;
     }
 
-    public No(Pokemon pokemon) {//construtor do Nó atribuindo valor e iniciando os filhos como null
+    public No(Pokemon pokemon) {
         this.pokemon = pokemon;
         this.dir = this.esq = null;
     }
