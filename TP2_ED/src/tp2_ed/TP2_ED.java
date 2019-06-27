@@ -17,24 +17,29 @@ public class TP2_ED {
 
 		Fila filaOriginal = new Fila();
 
-		long inicio = System.nanoTime();
+		
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 1000000; i++) {
 			Pokemon pokemon = new Pokemon();
 			filaOriginal.add(pokemon);	
 		}
-		long fim = System.nanoTime();
 
-		System.out.println(fim - inicio);
-
-		System.out.println(filaOriginal.contarTipo("fogo"));
-
+	
+		
+	//	System.out.println(filaOriginal.contarTipo("fogo"));
+		
+		
+	
+		
+		long inicio = System.nanoTime();
 		while (!filaOriginal.isEmpty()) {
 			System.out.println(filaOriginal);
 			System.out.println();
 			System.out.println(filaOriginal.removePokemonByType("Agua"));
 			System.out.println(filaOriginal);
 		}
+		long fim = System.nanoTime();
+		System.out.println(fim - inicio);
 	}
 
 }

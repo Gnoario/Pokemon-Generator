@@ -100,23 +100,14 @@ public class Fila implements IFila {
 			atual = atual.getProx();
 		}
 		return nova;
+	}
 
-//		Fila nova = new Fila();
-//		No atual = inicio;
-//		
-//		Pokemon p, pAtual;
-//		p = removeFirst();
-//		nova.add(p);
-//
-//		while (atual != null) {
-//			pAtual = removeFirst();
-//			if (!pAtual.getTipo().equalsIgnoreCase("Agua")) {
-//				p = pAtual;
-//				nova.add(p);
-//			}
-//
-//		}
-//		return nova;
+	public int ordenaFilaPokemon(No node, Pokemon pokemon) {
+		int result, aux;
+
+		aux = pokemon.getNome().compareTo(node.getInfo().getNome());
+		
+		
 	}
 
 	@Override
