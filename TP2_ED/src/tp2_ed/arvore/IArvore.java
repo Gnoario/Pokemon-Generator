@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tp2_ed.fila;
+package tp2_ed.arvore;
+
+import tp2_ed.Pokemon;
 
 /**
  *
  * @author tadeu
  */
-public interface ILista {
-
-    public boolean add(int info);
-
-    public boolean remove();
+public interface IArvore {
 
     public boolean isEmpty();
 
@@ -22,4 +20,9 @@ public interface ILista {
     @Override
     public String toString();
 
+    public void add(Pokemon p);
+    
+    public int countFire();
+    
+    public boolean removePokemonsAgua();
 }
