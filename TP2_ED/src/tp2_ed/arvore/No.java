@@ -18,12 +18,6 @@ public class No {
     private No esq;
     private No dir;
 
-    public No(int chave, Pokemon pokemon) {
-        this.chave = chave;
-        this.pokemon = pokemon;
-        this.esq = null;
-        this.dir = null;
-    }
 
     public No(Pokemon pokemon) {
         this.pokemon = pokemon;

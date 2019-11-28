@@ -40,20 +40,6 @@ public class Arvore implements IArvore {
         return (this.raiz == null);
     }
 
-    public boolean addChave(Pokemon poke) {
-        int chave = (numElementos + 1);
-        if (chave % 2 != 0) {
-            chave = (numElementos * -1);
-        }
-        No novo = new No(chave, poke);
-        if (this.raiz == null) {
-            this.raiz = novo;
-            return true;
-        }
-        numElementos++;
-        add(this.raiz, novo);
-        return true;
-    }
 
     @Override
     public synchronized void add(Pokemon inserido) {//metodo para inserir nós na árvore
@@ -86,26 +72,6 @@ public class Arvore implements IArvore {
         }
     }
 
-    private boolean add(No atual, No novo) {
-        if (novo.getChave() == atual.getChave()) {
-            return false;
-        } else if (novo.getChave() < atual.getChave()) {
-            if (atual.getEsq() == null) {
-                atual.setEsq(novo);
-                return true;
-            } else {
-                return add(atual.getEsq(), novo);
-            }
-        } else {
-            if (atual.getDir() == null) {
-                atual.setDir(novo);
-                return true;
-            } else {
-                return add(atual.getDir(), novo);
-            }
-        }
-    }
-
     @Override
     public int countFire() {
         return contTipoFogo(raiz);
@@ -121,73 +87,80 @@ public class Arvore implements IArvore {
         return contTipoFogo(atual.getEsq()) + 0 + contTipoFogo(atual.getDir());
     }
 
+    
+
     @Override
-    public boolean remove(int chave) {
-        No atual = raiz;
-        No pai = raiz;
-        return remove(atual, pai, chave);
+    public String toString() {
+        return toString(this.raiz);
     }
 
-    private boolean remove(No atual, No pai, int chave) {
+    public No getRaiz() {
+        return raiz;
+    }
+
+   
+
+    @Override
+    public boolean removePokemonsAgua() {
+        boolean removeu;
+        do {
+            No atual = this.raiz;
+            No pai = this.raiz;
+            removeu = remove(atual, pai);
+        }while (removeu && this.raiz != null);
+
+        return true;
+    }
+
+    private boolean remove(No atual, No pai) {
+
         if (atual == null) {
-            return false; // nodo não encontrado
-        } else if (atual.getChave() == chave) {
-            return removeEncontrado(atual, pai); //encontrou o nodo a ser removido
-        } else if (atual.getChave() > chave) {
-            return remove(atual.getEsq(), atual, chave); //desce a esquerda
-        } else {
-            return remove(atual.getDir(), atual, chave); //desce a direita
+            return false;
+        }
+        if (atual.getPokemon().getTipo().contains("Agua")) {
+            removeEncontrado(atual, pai);
+            return true;
+        }else {
+            return remove(atual.getDir(), atual) ||
+            remove(atual.getEsq(), atual);
         }
     }
 
-//    public void ordenaPokemons(Arvore original){
-//        Arvore nova = new Arvore();
-//        No aux = original.getRaiz();
-//        while(aux != null){
-//            if(aux.getPokemon().getNome().)
-//        }
-//    }
     private boolean removeEncontrado(No atual, No pai) {
-// nodo é folha (sem filhos)
-        if (atual.getEsq() == null && atual.getDir() == null) {
+        if (atual.getDir() == null && atual.getDir() == null) {
             return removeFolha(atual, pai);
-        } // nodo tem apenas 1 filho
-        else if (atual.getEsq() == null || atual.getDir() == null) {
+        } else if (atual.getDir() == null || atual.getEsq() == null) {
             return removeUmFilho(atual, pai);
-        } //nodo a ser removido tem dois filhos
-        else {
+        } else {
             return removeDoisFilhos(atual, pai);
         }
     }
 
     private boolean removeFolha(No atual, No pai) {
-        if (atual == raiz) // removendo a raiz
-        {
-            raiz = null;
-        } else if (pai.getEsq() == atual) // nodo a esquerda
-        {
+        if (atual == this.raiz) {
+            this.raiz = null;
+        } else if (pai.getEsq() == atual) {
             pai.setEsq(null);
-        } else //nodo a direita
-        {
+        } else {
             pai.setDir(null);
         }
         return true;
     }
 
     private boolean removeUmFilho(No atual, No pai) {
-        if (atual == raiz) {// removendo a raiz
+        if (atual == this.raiz) {
             if (atual.getEsq() != null) {
-                raiz = atual.getEsq();
+                this.raiz = atual.getEsq();
             } else {
-                raiz = atual.getDir();
+                this.raiz = atual.getDir();
             }
-        } else if (pai.getEsq() == atual) { // nodo a esquerda
+        } else if (pai.getEsq() == atual) {
             if (atual.getEsq() != null) {
                 pai.setEsq(atual.getEsq());
             } else {
                 pai.setEsq(atual.getDir());
             }
-        } else { //nodo a direita
+        } else {
             if (atual.getEsq() != null) {
                 pai.setDir(atual.getEsq());
             } else {
@@ -200,14 +173,14 @@ public class Arvore implements IArvore {
     private boolean removeDoisFilhos(No atual, No pai) {
         No sucessor = atual.getDir();
         No paiSucessor = atual;
-        while (sucessor.getEsq() != null) {//localizar sucessor
+        while (sucessor.getEsq() != null) {
             paiSucessor = sucessor;
             sucessor = sucessor.getEsq();
         }
-        if (sucessor == atual.getDir()) { //nodo a direita do atual
+        if (sucessor == atual.getDir()) {
             sucessor.setEsq(atual.getEsq());
-            if (atual == raiz) {
-                raiz = sucessor;
+            if (atual == this.raiz) {
+                this.raiz = sucessor;
             } else if (pai.getEsq() == atual) {
                 pai.setEsq(sucessor);
             } else {
@@ -217,55 +190,18 @@ public class Arvore implements IArvore {
             paiSucessor.setEsq(sucessor.getDir());
             sucessor.setDir(atual.getDir());
             sucessor.setEsq(atual.getEsq());
-            if (atual == raiz) {
-                raiz = sucessor;
+            if (atual == this.raiz) {
+                this.raiz = sucessor;
             } else if (pai.getEsq() == atual) {
                 pai.setEsq(sucessor);
             } else {
                 pai.setDir(sucessor);
             }
-        } //nodo a esquerda
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return toString(this.raiz);
-    }
-
-    public No getRaiz() {
-        return raiz;
-    }
-
-    @Override
-    public boolean removePokemonsAgua() {
-        return removeTipoAgua(this.raiz, this.raiz);
-    }
-
-    public boolean removeTipoAgua(No atual, No pai) {
-        if (atual == null) {
-            return false;
-        }
-        if (atual.getPokemon().getTipo().toLowerCase().contains("agua")) {
-            removeRecursivo(atual, pai);
-        }
-        removeTipoAgua(atual.getEsq(), atual);
-        removeTipoAgua(atual.getDir(), atual);
-
-        return true;
-    }
-
-    private boolean removeRecursivo(No atual, No pai) {
-        if (atual != null) {
-            if (atual.getPokemon().getTipo().toLowerCase().contains("agua")) {
-                removeEncontrado(atual, pai);
-            } else {
-                removeRecursivo(atual.getEsq(), atual);
-                removeRecursivo(atual.getDir(), atual);
-            }
         }
         return false;
     }
+
+    
 
     private String toString(No atual) {
         if (atual == null) {

@@ -159,5 +159,4 @@ public class Vetor implements IVetor {
             System.out.println(pokemons[i] + " ");
         }
     }
-
 }

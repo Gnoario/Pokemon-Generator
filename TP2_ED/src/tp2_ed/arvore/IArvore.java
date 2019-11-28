@@ -21,8 +21,6 @@ public interface IArvore {
     public String toString();
 
     public void add(Pokemon p);
-
-    public boolean remove(int chave);
     
     public int countFire();
     
